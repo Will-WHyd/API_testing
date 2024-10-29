@@ -52,5 +52,21 @@ async function postForm(e) {
 }
 
 function displayErrors(data) {
-    
+    let heading = `JSHint results for ${data.file}`;
+
+    if (data.total_errors === 0) {
+        results = `<div class="no_errors">No errors reported!</div>`;
+    } else {
+        results = `<div class="error_count">${data.total_errors}</div>`;
+        for (let e of data.error_list) {
+            results += `<div >At line <span class="line">${error.line}</span>, `;
+            results += `column <span class="column">${error.col}</span></div>`;
+            results += `<div class="error">${data.error}</div>`;
+        }
+
+    document.getElementById("resultsModalTitle").innerHTML = heading;
+    document.getElementById("results-content").innerHTML = results;
+
+    resultsModal.show();
+    }
 }
